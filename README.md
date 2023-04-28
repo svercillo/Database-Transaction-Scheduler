@@ -29,6 +29,25 @@ make run INPUT_FILE=’input_file_path.txt'
 
 
 
+
+## Implementing a Recoverable Scheduler
+
+A recoverable schedule is a type of schedule that guarantees recoverability in the event of a transaction failure. In other words, if a transaction fails and aborts midway through, the schedule must be recoverable, meaning that it can restore the system to a state that is consistent with the transactions that have already committed. Implementing a recoverable schedule is critical in database systems because it ensures data consistency and minimizes data loss.
+
+To implement a recoverable schedule, one must follow certain rules. Firstly, no transaction should overwrite uncommitted data in the database, as this could result in data loss if the transaction fails. Secondly, if a transaction T1 modifies data that is then read by another transaction T2, T2 must not commit until T1 has either committed or aborted. This ensures that if T1 fails, T2 can still read the correct data. Finally, a transaction must not commit until all transactions that have modified data that T1 has read or modified have committed.
+
+To achieve these rules, I utilized the concept of transaction logs, which record all of the actions performed by a transaction. Each transaction has a unique identifier and is recorded in the log, along with the type of action (read, write, commit, or abort) and the data item that was accessed. If a transaction fails, the log can be used to undo any changes made by the transaction.
+
+To implement a recoverable schedule, I used a wait-die scheme. In this scheme, a transaction can wait for a conflicting transaction to finish if the waiting transaction has a higher priority than the conflicting transaction. If the conflicting transaction has a higher priority, the waiting transaction is aborted and restarted later. This ensures that a lower priority transaction never overwrites uncommitted data from a higher priority transaction.
+
+
+## Implementing a Cascadeless Recoverable Scheduler
+
+A cascadeless recoverable schedule is a schedule that ensures no cascading rollbacks occur, meaning if a transaction is rolled back, it does not force other transactions to roll back as well. This is accomplished by using a deferred update strategy, which ensures that a transaction's updates are not made permanent until it is certain that the transaction will commit. This strategy prevents cascading rollbacks by allowing a transaction to be rolled back without affecting other transactions that may have read its uncommitted changes.
+
+To implement a cascadeless recoverable scheduler, a deferred update strategy must be used along with a commit-time validation approach, which checks for conflicts between transactions at commit time. Transactions that pass the validation are allowed to commit, while those that do not are rolled back. To ensure correctness, a dependency graph can be constructed to identify potential conflicts between transactions, and the transactions can then be scheduled to reduce conflicts and maximize concurrency. While cascadeless recoverable schedules may not perform as well as serializable schedules in terms of speed, they are necessary in systems where data consistency and recoverability are critical.
+
+
 ## Implementing a Serial Scheduler
 
 A schedule known as a serial schedule is one in which transactions are carried out consecutively, without any interleaving. In other words, before the next transaction starts, the previous one is fully completed. As a result, there are no concurrency control problems and the transactions are executed in total isolation from one another. Serial schedules guarantee correctness, but because they do not take use of concurrency or parallelism, they are not very effective in terms of performance.
