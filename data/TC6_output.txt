@@ -1,0 +1,36 @@
+Serial Scheduler
+3 3 T1 W A
+5 5 T1 A
+6 1 T2 W B
+7 4 T2 R A
+8 6 T2 C
+9 2 T3 R B
+10 7 T3 C
+
+Serializable Scheduler
+1 1 T2 W B
+3 3 T1 W A
+5 5 T1 A
+6 4 T2 R A
+7 6 T2 C
+8 2 T3 R B
+9 7 T3 C
+
+Cascadeless Recoverable
+1 1 T2 W B
+3 3 T1 W A
+5 5 T1 A
+6 4 T2 R A
+7 6 T2 C
+8 2 T3 R B
+9 7 T3 C
+
+Recoverable
+1 1 T2 W B
+2 2 T3 R B
+3 3 T1 W A
+4 4 T2 R A
+5 5 T1 A
+6 6 T2 A
+7 7 T3 A
+

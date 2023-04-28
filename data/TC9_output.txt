@@ -1,0 +1,25 @@
+Serial Scheduler
+4 4 T1 W A
+6 6 T1 R B
+8 8 T1 C
+9 5 T2 W B
+10 7 T2 R A
+12 12 T2 C
+
+Serializable Scheduler
+4 4 T1 W A
+5 5 T2 W B
+DEADLOCK DETECTED AT TIME 6
+
+Cascadeless Recoverable
+4 4 T1 W A
+5 5 T2 W B
+DEADLOCK DETECTED AT TIME 7
+
+Recoverable
+4 4 T1 W A
+5 5 T2 W B
+6 6 T1 R B
+7 7 T2 R A
+DEADLOCK DETECTED AT TIME 8
+

@@ -1,0 +1,8 @@
+1 T1 W A
+2 T2 W B
+6 T3 R A
+7 T3 R B
+8 T3 C
+9 T2 C
+10 T1 R A
+11 T1 C

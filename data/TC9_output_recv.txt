@@ -1,0 +1,9 @@
+Recoverable
+1 1 T1 W A
+2 2 T2 W B
+3 3 T3 W C
+4 4 T4 W D
+5 5 T1 R A
+6 6 T2 R B
+7 7 T3 R C
+8 8 T4 R D

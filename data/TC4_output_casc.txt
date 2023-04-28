@@ -1,0 +1,9 @@
+1 T1 S
+2 T2 S
+3 T3 S
+4 T1 W A 
+12 T1 C
+13 T2 R A 
+14 T3 R A
+15 T2 C
+16 T3 C
