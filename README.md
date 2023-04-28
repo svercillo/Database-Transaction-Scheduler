@@ -1,6 +1,6 @@
 # Database-Transaction-Scheduler
 
-Introduction:
+## Introduction:
 
 Implementing a programme that simulates the execution of a given schedule while adhering to the concurrency control principles of recoverability and cascadeless recoverability was necessary for the work at hand. The difficulties encountered throughout the programme's development are highlighted in this report.
 
@@ -36,7 +36,7 @@ A schedule known as a serial schedule is one in which transactions are carried o
 I implemented this serial scheduler by storing all the actions that a particular action executes in order. I then sort all the transactions in the increasing order of the last action of a transaction (either a commit or abort). Then, all the actions of all the transactions in such an order are sequentially processed. It is important to note that this is an efficient way to schedule transactions sequentially, as the transactions are sorted on the last action time. In many scenarios, all the transactions can be processed in less time than the serializable schedule, and occasionally the cascading recoverable schedule because of this, however the average wait time for an action to be processed is significantly higher for many inputs. When an action comes in, although in aggregate the time to process all the transactions may be lower, the time that an action must wait is sometimes large, causing long and unexpected delays from a user’s perspective.
 
 
-Implementing a Serializable Scheduler
+## Implementing a Serializable Scheduler
 
 A schedule that executes transactions concurrently but makes them seem as though they were carried out in sequence is known as a serializable schedule. The usage of serializable schedules maintains correctness while enhancing performance and using concurrency and parallelism. Serializable schedules, as opposed to serial schedules, are capable of handling numerous concurrently running transactions while avoiding potential concurrency control problems.
 I employed a two-phase locking approach to guarantee serializability in order to create a serializable scheduler. The transactions gain locks on the resources they have access to during the first phase, known as the growth phase. The transactions release their locks during the second phase, often known as the shrinking phase. This makes sure that no transaction can access a locked object by another transaction, either for reading or writing.
